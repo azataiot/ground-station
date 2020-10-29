@@ -44,3 +44,33 @@ UniSat: bye~
 
 UniSat: bye~
 
+2020-10-30 01:54:07,709 - 5852 - INFO - UniSat Logging Start
+2020-10-30 01:54:21,466 - 5852 - ERROR - Can't open serial. plz check the serial device or the serial port.
+2020-10-30 01:54:21,467 - 5852 - ERROR - 
+
+UniSat: bye~
+
+2020-10-30 01:54:29,144 - 5853 - INFO - UniSat Logging Start
+2020-10-30 01:54:37,314 - 5853 - ERROR - Can't open serial. plz check the serial device or the serial port.
+2020-10-30 01:54:37,933 - 5853 - ERROR - 
+
+UniSat: bye~
+
+2020-10-30 01:57:21,371 - 5870 - INFO - UniSat Logging Start
+2020-10-30 01:57:42,118 - 5871 - INFO - UniSat Logging Start
+2020-10-30 01:57:46,991 - 5871 - ERROR - Can't open serial. plz check the serial device or the serial port.
+2020-10-30 01:57:46,991 - 5871 - ERROR - 
+
+UniSat: bye~
+
+2020-10-30 01:58:09,217 - 5882 - INFO - UniSat Logging Start
+2020-10-30 01:58:28,601 - 5885 - INFO - UniSat Logging Start
+2020-10-30 02:00:14,949 - 5885 - ERROR - 
+
+UniSat: bye~
+
+2020-10-30 02:00:17,665 - 5893 - INFO - UniSat Logging Start
+2020-10-30 02:01:23,084 - 5893 - ERROR - 
+
+UniSat: bye~
+
