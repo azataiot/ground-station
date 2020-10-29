@@ -5,11 +5,16 @@ import subprocess
 import sys
 import time
 import struct
-from datetime import datetime
-from pathlib import Path
+import logging
 import click
 import serial
 from binascii import b2a_hex, a2b_hex
+
+writepath = os.path.join(os.getcwd(), 'log.txt')
+logging.basicConfig(filename=writepath,
+                    level=logging.DEBUG,
+                    filemode='a' if os.path.exists(writepath) else 'w',
+                    format='%(asctime)s - %(process)d - %(levelname)s - %(message)s')
 
 acp = serial.Serial()
 acp.baudrate = 38400
@@ -26,15 +31,18 @@ TEXT_AZATAI = r""" azt::ver 0.7.9 beta
 
 
 def main():
+    logging.info("UniSat Logging Start")
     acp.port = click.prompt("port:", default='/dev/cu.usbserial-0001')
     try:
         acp.open()
     except:
-        print("Can't open serial. plz check the serial device or the serial port.")
+        msg = "Can't open serial. plz check the serial device or the serial port."
+        logging.error(msg);
+        print(msg)
         sys.exit(1)
     while True:
         try:
-            subprocess.call('read -t 2', shell=True)
+            pass
         except:
             pass
         # receiving
@@ -45,8 +53,11 @@ def main():
             package.append(hex_byte)
             print(hex_byte, end=' ')
         if len(package) > 5:
+            logging.info(package)
             print('\n')
-            print("Valid Angime:")
+            msg = "Valid Angime:"
+            logging.info(msg)
+            print(msg)
             # time
             time_now = time.localtime()  # get struct_time
             time_string = time.strftime("%m-%d-%Y-%H-%M-%S", time_now)
@@ -66,14 +77,22 @@ def main():
                 print(f"received_time: {received_time}")
                 print(f"payload length: {length}")
                 print(f"payload: {package[2:-2]}")
+                logging.info(sender)
+                logging.info(received_time)
+                logging.info(length)
+                logging.info(package[2:-2])
                 if package[3] == b'02':
                     print('')
-                    print(f"CMD '02' Таймштамп UTC+0: {package[4:8]}")
+                    msg = f"CMD '02' Таймштамп UTC+0: {package[4:8]}"
+                    print(msg)
+                    logging.info(msg)
                     tmp_p = package[4:8]
                     tmp_p.reverse()
                     tmp = b''.join(tmp_p)
                     time_stamp = int(tmp, 16)
-                    print(f"UTC Time: {time_stamp}")
+                    msg = f"UTC Time: {time_stamp}"
+                    print(msg)
+                    logging.info(msg)
 
                 if package[8] == b'0a':
                     print('')
@@ -110,6 +129,7 @@ def main():
                     print(f"Speed Value: {speed} m/s")
                     print(f"Direction Value: {direction}")
                     print('')
+                    logging.info(f"{latitude}, {longitude}, {height}, {speed}, {direction}")
 
 
 if __name__ == '__main__':
@@ -119,5 +139,6 @@ if __name__ == '__main__':
         main()
     except (KeyboardInterrupt, SystemExit):
         acp.close()
+        logging.error("\n\nUniSat: bye~\n")
         print("\n\nUniSat: bye~\n")
         sys.exit(0)
